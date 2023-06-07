@@ -1,0 +1,32 @@
+stages:
+  - lint
+  - build
+  - test
+
+Lint:
+  stage: lint
+  tags:
+    - bfs
+  script: 
+    - cpplint --verbose=0 src/decyear.cpp
+    - cpplint --verbose=0 src/decyear.h
+
+Compile:
+  stage: build
+  tags:
+    - bfs
+  script:
+    - mkdir build
+    - cd build
+    - cmake ..
+    - make
+  artifacts:
+    paths:
+      - build/decyear_test
+  
+Test Polytools:
+  stage: test
+  tags:
+    - bfs
+  script:
+    - ./build/decyear_test

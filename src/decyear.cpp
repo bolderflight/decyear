@@ -40,9 +40,13 @@ double decyear(const int16_t yyyy, const int8_t mm, const int8_t dd,
   double jd = juliandate(yyyy, mm, dd, h, m, s);
   double epoch = juliandate(yyyy, 1, 1, 0, 0, 0);
   bool leap_year = false;
-  if (yyyy % 400 == 0) {leap_year = true;}
-  else if (yyyy % 100 == 0) {leap_year = false;}
-  else if (yyyy % 4 == 0) {leap_year = true;}
+  if (yyyy % 400 == 0) {
+    leap_year = true;
+  } else if (yyyy % 100 == 0) {
+    leap_year = false;
+  } else if (yyyy % 4 == 0) {
+    leap_year = true;
+  }
   double decyear;
   if (leap_year) {
     decyear = static_cast<double>(yyyy) + (jd - epoch) / 366.0;

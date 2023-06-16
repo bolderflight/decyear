@@ -2,16 +2,39 @@
 cmake_minimum_required(VERSION 3.14)
 # Project information
 project(DecYear
-  VERSION 1.0.0
+  VERSION 1.1.0
   DESCRIPTION "Decimal Year Converter"
   LANGUAGES CXX
 )
 include(FetchContent)
+if (DEFINED DEPS)
+  string(TOUPPER ${DEPS} DEPS)
+  if (DEPS STREQUAL "BFS")
+    FetchContent_Declare(
+      juliandate
+      GIT_REPOSITORY git@192.168.1.11:bolderflight/software/juliandate.git
+      GIT_TAG v1.0.0
+    )
+  elseif(DEPS STREQUAL "LOCAL")
+    FetchContent_Declare(
+      juliandate
+      GIT_REPOSITORY ${CMAKE_SOURCE_DIR}/../juliandate
+      GIT_TAG v1.0.0
+    )
+  else()
+    FetchContent_Declare(
+      juliandate
+      GIT_REPOSITORY https://github.com/bolderflight/juliandate.git
+      GIT_TAG v1.0.0
+    )
+  endif()
+else()
 FetchContent_Declare(
   juliandate
   GIT_REPOSITORY https://github.com/bolderflight/juliandate.git
   GIT_TAG v1.0.0
 )
+endif()
 FetchContent_MakeAvailable(juliandate)
 # Add the library target
 add_library(decyear
